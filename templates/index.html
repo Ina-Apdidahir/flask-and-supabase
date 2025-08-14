@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Student Registration</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-800 min-h-screen flex items-center justify-center">
+    <div class="bg-white p-8 rounded shadow-lg w-full max-w-xl">
+        <h1 class="text-2xl font-bold mb-6 text-center">Student List</h1>
+
+        <form method="POST" action="/add_student" class="space-y-4 mb-6">
+            <input 
+                type="text" 
+                name="name" 
+                placeholder="Name" 
+                required 
+                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400"
+            />
+            <input 
+                type="text" 
+                name="faculty" 
+                placeholder="Faculty" 
+                required 
+                class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring focus:border-blue-400"
+            />
+            <button 
+                type="submit" 
+                class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition"
+            >
+                Add Student
+            </button>
+        </form>
+
+        <table class="min-w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200 text-left">
+                    <th class="border border-gray-300 px-4 py-2">ID</th>
+                    <th class="border border-gray-300 px-4 py-2">Name</th>
+                    <th class="border border-gray-300 px-4 py-2">Faculty</th>
+                    <th class="border border-gray-300 px-4 py-2">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr class="hover:bg-gray-50">
+                    <td class="border border-gray-300 px-4 py-2">{{ student.id }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ student.name }}</td>
+                    <td class="border border-gray-300 px-4 py-2">{{ student.faculty }}</td>
+                    <td class="border border-gray-300 px-4 py-2">
+                        <a href="/get_student/{{ student.id }}" class="text-blue-500 hover:underline">Edit</a> |
+                        <a href="/delete_student/{{ student.id }}" onclick="return confirm('Are you sure?');" class="text-red-500 hover:underline">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
