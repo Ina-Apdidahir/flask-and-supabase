@@ -1,9 +1,19 @@
+
+import os
 from flask import Flask,render_template,redirect,request 
 from supabase import create_client, Client 
-url='https://wpjoyaaxpicxxlobylxx.supabase.co' 
-key='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indwam95YWF4cGljeHhsb2J5bHh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5MTgxODQsImV4cCI6MjA3MDQ5NDE4NH0.tgeeJq1ymf2uR-9nUamzGS2p5CM00FiHY1NgiwnyKEs' 
-supabase: Client = create_client(url, key) 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 app = Flask(__name__) 
+
+app.config['SUPABASE_URL'] = os.getenv('SUPABASE_URL')
+app.config['SUPABASE_SECRET'] = os.getenv('SUPABASE_SECRET')
+
+url = app.config['SUPABASE_URL']
+key = app.config['SUPABASE_SECRET']
+supabase: Client = create_client(url, key) 
 
 
 # student routes
